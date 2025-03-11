@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Better Days</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Poetsen+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Jua&display=swap');
+
+        :root {
+    --green : #9ACD32;
+    --black : #444;
+    --light-color : #777;
+    --box-shadow: .5rem .5rem 0 rgba(22,160,133, .2);
+    --border: .2rem solid var(--green);
+}
+
+    * {
+        font-family: "Poetsen One", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        transition: all .2s ease-out;
+        text-decoration: none;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: var(--green);
+}
+
+.show-btn, .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    display: none;
+    background: whitesmoke ;
+    width: 410px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+}
+
+.container .text{
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.container form {
+    margin-top: -20px;
+}
+
+.container form .data {
+    height: 45px;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.container form .data label {
+    font-size: 18px;
+}
+.container form .data input {
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    border: var(--border);
+}
+
+.container form .data input:focus {
+    border-color: var(black);
+    border-bottom-width: 7px;
+}
+
+.btn {
+    display: inline-block;
+   
+    padding: .5rem;
+    
+    border: var(--border);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    color: var(--green);
+    cursor: pointer;
+    font-size: 1.7rem;
+    background: white;
+    left: -100%;
+    cursor: pointer;
+}
+
+.btn span{
+    padding: .7rem 1rem;
+    border-radius: .5rem;
+    background: var(--green);
+    color: white;
+   
+}
+
+.btn:hover{
+    background: var(--green);
+    color: white;
+}
+
+.btn:hover span{
+    color: var(--green);
+    background-color: white;
+    margin-left: 1rem;
+}
+
+.container .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 18px;
+    cursor: pointer;
+
+}
+
+.container .close-btn:hover {
+    color: var(--green);
+}
+
+.show-btn {
+    background-color: var(--black);
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 500;
+   
+}
+
+#show:checked ~ .container {
+    display: block;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+ 
+
+    </style>
+</head>
+<body>
+    <div class="center">
+        <input type="checkbox" id="show">
+        <label for="show" class="show-btn"> View Booking Form </label>
+        <div class="container">
+            <label for="show" class="close-btn fas fa-times"></label>
+            <div class="text"> Booking </div>
+            <form action="#">
+                <div class="data">
+                    <label> Name </label>
+                    <input type="text" required>
+                </div>
+
+                <div class="data">
+                    <label> Phone </label>
+                    <input type="password" required>
+                </div>
+                
+                
+                    <button type="submit" class="btn" > login </button>
+               
+            </form>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

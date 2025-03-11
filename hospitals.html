@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Better Days - Hospital Search</title>
+    
+    <style>
+
+        /* font-family import */
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap'); 
+
+        /* overall CSS */
+        :root {
+            --green: #9ACD32;
+            --black: #444;
+            --light-color: #777;
+            --box-shadow: .5rem .5rem 0 rgba(22,160,133, .2);
+            --border: .2rem solid var(--green);
+        }
+
+        * {
+            font-family: "Jua", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            transition: all .2s ease-out;
+            text-decoration: none;
+        }
+
+        header img {
+            width: 40px;
+            float: left;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+            scroll-padding-top: 7rem;
+            scroll-behavior: smooth;
+        }
+
+        section {
+            padding: 2rem 9%;
+        }
+
+        section:nth-child(even) {
+            background: whitesmoke;
+        }
+
+        .heading {
+            text-align: center;
+            padding-bottom: 2rem;
+            text-shadow: var(--text-shadow);
+            text-transform: uppercase;
+            color: var(--black);
+            font-size: 5rem;
+            letter-spacing: .4rem;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        [class = "btn"] {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .5rem;
+            border: var(--border);
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+            color: var(--green);
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: white;
+            height: 40px;
+        }
+
+        .btn:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        .section {
+            padding: 2rem;
+        }
+
+        .header {
+            padding: 2rem 9%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: rgba(0, 0, 0, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+        }
+
+        .header .logo {
+            font-size: 1.7rem;
+            color: green;
+        }
+
+        .header .navbar a {
+            font-size: 2rem;
+            color: var(--light-color);
+            margin-left: 2rem;
+            text-decoration: none;
+        }
+
+        .header .navbar a:hover {
+            color: var(--green)
+        }
+
+        #menu-btn {
+            font-size: 2.5rem;
+            border-radius: .5rem;
+            background: white;
+            color: var(--green);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* home section css starts */
+        .home {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-top: 10rem;
+        }
+
+        .home .image {
+            flex: 1 1 45rem;
+        }
+
+        .home .image img {
+            width: fit-content;
+        }
+
+        .home .search {
+            flex: 1 1 45rem;
+        }
+
+        .home .search h2 {
+            font-size: 3rem;
+            color: var(--green);
+            line-height: 1.8;
+            text-shadow: var(--text-shadow);
+        }
+
+        .home .search form .searchQuery {
+            font-size: 1.5rem;
+            color: var(--black);
+            height: 40px;
+            width: 200px;
+            padding: 1rem 0;
+            border: var(--border);
+            box-shadow: var(--box-shadow);
+            border-radius: .5rem;
+            font-family: "Jua", sans-serif;
+        }
+
+        button [type="submit"]  {
+            line-height: 1;
+        }
+        /* home section css ends */
+
+        /* search result display css starts */
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+            gap: 2rem;
+        }
+
+        .result-item {
+            background: white;
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+            border: var(--border);
+            padding: 2.5rem;
+            position: relative; /* Added for the pop-up positioning */
+        }
+
+        .result-item h3 {
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+            color: blue;
+        }
+
+        .result-item p {
+            font-size: 1.5rem;
+            margin: 0;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .result:hover {
+            color: var(--green)
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+        
+        th,td{
+            border: 1px solid black;
+            font-size: 1.3rem;
+            width: 120px;
+            height: 20px;
+        }
+
+        .results .btn, .show-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .5rem;
+            padding-left: 1rem;
+            border: var(--border);
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+            color: var(--green);
+            cursor: pointer;
+            font-size: 1.7rem;
+            background: white;
+        }
+
+        .results .btn span, .show-btn {
+            padding: .7rem 1rem;
+            border-radius: .5rem;
+            background: var(--green);
+            color: white;
+            margin-left: .5rem;
+        }
+
+        /* booking form css starts */
+        .container {
+            display: none;
+            background: white;
+            width: 410px;
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001; /* Higher z-index to ensure it is above the backdrop */
+            border-radius: 8px;
+        }
+
+        .container .text {
+            font-size: 20px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .container form {
+            margin-top: center;
+        }
+
+        .container form .data {
+            height: 45px;
+            width: 100%;
+            margin: 40px 0;
+        }
+
+        .container form .data label {
+            font-size: 18px;
+        }
+
+        .container form .data input {
+            height: 100%;
+            width: 100%;
+            padding-left: 10px;
+            font-size: 17px;
+            border: var(--border);
+        }
+
+        .container form .data input:focus {
+            border-color: var(black);
+            border-bottom-width: 7px;
+        }
+
+        .container .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .container .close-btn:hover {
+            color: var(--green);
+        }
+        
+        .result .show-btn {
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    
+        .backdrop {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            backdrop-filter: blur(5px); /* Apply blur effect */
+            z-index: 1000; /* Lower than container to appear behind it */
+        }
+
+        .show .backdrop,
+        .show .container {
+            display: block;
+        }
+
+        .blur {
+            filter: blur(5px);
+        }
+
+        .notice {
+            width: 200px;
+            padding: 30px;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: var(--border);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            z-index: 1002; /* Higher than the form container */
+        }
+
+        .notice button {
+            margin-top: 10px;
+            padding: .5rem;
+            border: var(--border);
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+            color: var(--green);
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: white;
+        }
+
+        .notice button:hover {
+            background: var(--green);
+            color: white;
+        }
+
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000; /* Just below the form container */
+        }
+
+        .notice .backdrop {
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+            html {
+                font-size: 55%
+            }
+
+            .header {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #menu-btn {
+                display: initial;
+            }
+
+            .header .navbar {
+                position: absolute;
+                top: 115%;
+                right: 2rem;
+                border-radius: .5rem;
+                box-shadow: var(--box-shadow);
+                width: 30rem;
+                border: var(--border);
+                background: white;
+                transform: scale(0);
+                opacity: 0;
+                transform-origin: top right;
+                transition: none;
+            }
+
+            .header .navbar.active {
+                transform: scale(1);
+                opacity: 1;
+                transition: .3s ease-out;
+            }
+
+            .header .navbar a {
+                font-size: 2rem;
+                display: block;
+                margin: 2.5rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            html {
+                font-size: 50%
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- header section starts -->
+    <header class="header">
+        <a href="#" class="logo"> <img src="img/logo2.jpg"> Better Days </a>
+        <nav class="navbar">
+            <a href="index.html#home"> 홈페이지 </a>
+            <a href="index.html#services"> 서비스 </a>
+            <a href="index.html#blogs"> 브로그 </a>
+            <a href="index.html#blog"> 개발 정보 </a>
+            <a href="index.html#contact"> 피드백 </a>
+        </nav>
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </header>
+    <!-- header section ends -->
+
+    <!-- home section starts -->
+    <section class="home" id="home">
+        <div class="image">
+            <img src="./img/4.svg" alt="Hospital Search">
+        </div>
+        <div id="search" class="search">
+            <h2>병원, 약국, 의원 정보 검색 </h2>
+            <form id="searchForm">
+                <select id="searchType" name="searchType" class="searchQuery">
+                    <option value="institution">기관명</option>
+                    <option value="kind">의료기관분류</option>
+                </select>
+                <input type="text" id="searchQuery" class="searchQuery" placeholder="여기서 검색어를 적어주세요. " class="searchQuery" required>
+                <button type="submit" class="btn">검색</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="search_result" class="search_result">
+        <div id="results"></div>
+    </section>
+
+    <div class="backdrop"></div>
+    <div class="container">
+        <span class="close-btn fas fa-times" id="closebtn"></span> <!-- close button -->
+        <div class="box-container" id="resultsContainer">
+            <div class="text">등록 양식</div>
+            <form action="#" id="formId">
+                <div class="data">
+                    <label>환자 이름 </label>
+                    <input type="text" placeholder="Enter the patient's name" required>
+                </div>
+                <div class="data">
+                    <label>전화번호 </label>
+                    <input type="text" required>
+                </div>
+                <div class="data">
+                    <label>메일</label>
+                    <input type="text" required>
+                </div>
+                <div class="data">
+                    <label> 날찌를 석택해주세요: </label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="data">
+                    <button id="btn" class="btn"> 예약하기 </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="backdrop"></div>
+    <div id="submitNotice" class="notice">
+        <p>Form submitted successfully!</p>
+        <button onclick="closeNotice()">OK</button>
+    </div>
+
+    <script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const query = document.getElementById('searchQuery').value;
+    const type = document.getElementById('searchType').value;
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = ''; // Clear previous results
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const data = JSON.parse(xhr.responseText);
+                if (data.response.body.items && data.response.body.items.item) {
+                    const items = Array.isArray(data.response.body.items.item) ? data.response.body.items.item : [data.response.body.items.item];
+                    items.forEach(item => {
+                        const resultItem = document.createElement('div');
+                        resultItem.classList.add('result-item');
+                        resultItem.innerHTML = `
+                            <h3>${item.instit_nm._text}</h3>
+                            <p>의료기관분류: ${item.instit_kind._text}</p>
+                            <p>주소: ${item.street_nm_addr._text}</p>
+                            <p>전화번호: ${item.tel._text}</p>
+                            <table> 
+                                <tr>
+                                    <th> 월요일: </th>
+                                    <td> ${item.Monday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 화요일: </th>
+                                    <td> ${item.Tuesday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 수요일: </th>
+                                    <td> ${item.Wednesday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 목요일: </th>
+                                    <td> ${item.Thursday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 금요일: </th>
+                                    <td> ${item.Friday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 토요일: </th>
+                                    <td> ${item.Saturday._text} </td>
+                                </tr>
+                                <tr>
+                                    <th> 일요일: </th>
+                                    <td> ${item.Sunday._text} </td>
+                                </tr>
+                            </table>
+                            <button class="show-btn">예약하기</button>
+                        `;
+                        resultsDiv.appendChild(resultItem);
+                    });
+                    document.querySelectorAll('.show-btn').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            event.stopPropagation(); // Prevent the event from bubbling up
+                            document.body.classList.add('show');
+                        });
+                    });
+                } else {
+                    resultsDiv.innerHTML = 'No results found.';
+                }
+            } else {
+                resultsDiv.innerHTML = 'An error occurred while fetching the results.';
+            }
+        }
+    };
+
+    const halfLength = Math.ceil(query.length / 2);
+    const queryType = query.length % 2 === 0 ? 'street_nm_addr' : 'institution';
+
+    xhr.open('GET', `/hospitalapi?query=${encodeURIComponent(query)}&type=${type}`, true);
+    xhr.send();
+});
+
+
+        document.getElementById('closebtn').addEventListener('click', () => {
+            document.body.classList.remove('show');
+            document.body.style.filter = " ";
+        });
+
+        document.querySelector('.backdrop').addEventListener('click', () => {
+            document.body.classList.remove('show');
+            document.body.style.filter = " ";
+        });
+
+        document.getElementById('formId').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual form submission
+
+            // Hide the form
+            document.getElementById('formId').style.display = 'none';
+
+            // Show the notice
+            showNotice();
+        });
+
+        function showNotice() {
+            document.getElementById('submitNotice').style.display = 'block';
+            document.querySelector('.backdrop').style.display = 'block';
+        }
+
+        function closeNotice() {
+            document.getElementById('submitNotice').style.display = 'none';
+            document.querySelector('.backdrop').style.display = 'none';
+            document.body.classList.remove('show'); // Ensure modal is hidden
+            document.body.style.filter = " ";
+        }
+
+        document.getElementById('closebtn').addEventListener('click', () => {
+            closeNotice();
+        });
+
+        document.querySelector('.backdrop').addEventListener('click', () => {
+            closeNotice();
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const navbar = document.querySelector('.navbar');
+
+            menuBtn.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+        });
+    </script>
+    <script src="./node.js"></script>
+</body>
+</html>
