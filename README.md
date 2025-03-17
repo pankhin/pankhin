@@ -1,5 +1,5 @@
 # 💫 Hi, I'm Pan!
-I'm currently working on NLP project with my friends. <br>I'm always open to collaborate on web development and data science project. <br>I'm currently learning full-stack development & data science. <br>My MBTI is ISTP and I like reading. <br>Nice to meet you all ~ 
+I'm always open to collaborate on web development and data science project. <br>I'm currently learning full-stack development & data science. <br>My MBTI is ISTP and I like reading. <br>Nice to meet you all ~ 
 
 
 ## 🌐 Socials:
